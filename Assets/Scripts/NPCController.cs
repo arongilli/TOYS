@@ -1,17 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class NPCInfo
+{
+    public string NPCName;
+}
 
 public class NPCController : MonoBehaviour, IInteractable
 {
+    public DialogueData dialogueData;
+
     public GameObject inputPrompt;
     public GameObject dialogueBox;
     public GameObject vCamera;
 
+    public UnityEvent OnInteract;
+
     public void Interact()
     {
-        throw new System.NotImplementedException();
-
+        OnInteract.Invoke();
+        Debug.Log("Interacting with: " + gameObject.name);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

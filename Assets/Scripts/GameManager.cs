@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameplayStatus { Explore, Dialogue, Puzzle, Menu }
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameManager Instance;
+
+    private void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    private GameplayStatus currentGameplayStatus;
+
+    public void SetCurrentGameplayStatus(GameplayStatus _status)
     {
-        
+        currentGameplayStatus = _status;
     }
 }
