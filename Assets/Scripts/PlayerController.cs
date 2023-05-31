@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
     Vector2 movement;
 
@@ -17,10 +18,34 @@ public class PlayerController : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        if(animator != null)
+        if(movement.x < 0)
+            spriteRenderer.flipX = true;
+        else if(movement.x > 0)
+            spriteRenderer.flipX = false;
+
+        if (animator != null)
         {
-            animator.SetFloat("Horizontal", movement.x);
-            animator.SetFloat("Vertical", movement.y);
+            if(movement.x != 0)
+                animator.SetBool("Horizontal", true);
+            else
+                animator.SetBool("Horizontal", false);
+
+            if (movement.y > 0)
+            {
+                animator.SetBool("VerticalUp", true);
+                animator.SetBool("VerticalDown", false);
+            }
+            else if(movement.y < 0)
+            {
+                animator.SetBool("VerticalDown", true);
+                animator.SetBool("VerticalUp", false);
+            }
+            else
+            {
+                animator.SetBool("VerticalUp", false);
+                animator.SetBool("VerticalDown", false);
+            }
+
             animator.SetFloat("Speed", movement.sqrMagnitude);
         }
 
